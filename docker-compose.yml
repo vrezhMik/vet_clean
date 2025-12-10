@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: ./vetgroup_backend
-    command: npm run develop -- --watch-admin
+    command: npm run start
     ports:
       - "1337:1337"
       - "5173:5173"
