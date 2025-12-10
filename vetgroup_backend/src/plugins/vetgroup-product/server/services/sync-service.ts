@@ -20,6 +20,7 @@ export default ({ strapi }) => ({
     const categories = await strapi.db
       .query("api::category.category")
       .findMany({ select: ["id", "title"] });
+    const productDocumentService = strapi.documents("api::product.product");
 
     for (const item of items) {
       const catalogName = item.CatalogName || "";
@@ -45,21 +46,31 @@ export default ({ strapi }) => ({
           : 0,
       };
 
-      const existing = await strapi.db
-        .query("api::product.product")
-        .findOne({ where: { backendId: item.ID } });
+      const existing = await strapi.db.query("api::product.product").findOne({
+        select: ["id", "documentId"],
+        where: { backendId: item.ID },
+      });
 
       if (existing) {
-        const updated = await strapi.entityService.update("api::product.product", existing.id, {
-          data: payload,
-        });
-        await strapi.entityService.publish("api::product.product", updated.id);
+        if (existing.documentId) {
+          await productDocumentService.update({
+            documentId: existing.documentId,
+            data: payload,
+            status: "published",
+          });
+        } else {
+          await strapi.db.query("api::product.product").update({
+            where: { id: existing.id },
+            data: payload,
+          });
+        }
+
         updatedCount++;
       } else {
-        const created = await strapi.entityService.create("api::product.product", {
+        await productDocumentService.create({
           data: payload,
+          status: "published",
         });
-        await strapi.entityService.publish("api::product.product", created.id);
         createdCount++;
       }
     }
