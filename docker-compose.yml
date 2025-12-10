@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./vetgroup_backend
+    command: npm run develop -- --watch-admin
+    ports:
+      - "1337:1337"
+      - "5173:5173"
+    env_file:
+      - ./vetgroup_backend/.env
+    environment:
+      NODE_ENV: development
+      STRAPI_ADMIN_HOST: 0.0.0.0
+    volumes:
+      - ./vetgroup_backend:/srv/app
+      - vetgroup_backend_node_modules:/srv/app/node_modules
+      - ./vetgroup_backend/.tmp:/srv/app/.tmp
+
+  frontend:
+    build:
+      context: ./vetgroup
+    command: npm run dev -- --hostname 0.0.0.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      NODE_ENV: development
+      NEXT_TELEMETRY_DISABLED: "1"
+      NEXT_PUBLIC_API_URL: http://backend:1337
+    volumes:
+      - ./vetgroup:/app
+      - vetgroup_node_modules:/app/node_modules
+
+volumes:
+  vetgroup_node_modules:
+  vetgroup_backend_node_modules:

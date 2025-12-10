@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+main {
+  width: 100%;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Chrome, Safari */
+    margin: 0;
+  }
+}
+.main_container {
+  width: 90%;
+}
+
+.contacts {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1000;
+
+  .contact {
+    width: 56px;
+    height: 40px;
+    background-color: rgb(20, 172, 20);
+    overflow: hidden;
+    transition: width 0.3s ease;
+
+    a {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center; // ✅ center when collapsed
+      padding: 0 12px;
+      text-decoration: none;
+      color: white;
+      gap: 0; // ✅ no gap until expanded
+
+      svg {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+      }
+
+      span {
+        display: none; // ✅ don't render at all
+        white-space: nowrap;
+        transition: opacity 0.2s ease;
+      }
+    }
+
+    // Mobile expanded
+    &.expanded {
+      width: 160px;
+
+      a {
+        justify-content: flex-start;
+        gap: 10px;
+      }
+
+      a span {
+        display: inline;
+        opacity: 1;
+      }
+    }
+
+    // Desktop hover
+    @media (min-width: 1024px) {
+      width: 56px;
+
+      &:hover {
+        width: 160px;
+
+        a {
+          justify-content: flex-start;
+          gap: 10px;
+        }
+
+        a span {
+          display: inline;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  main {
+    flex-direction: column;
+  }
+  .main_container {
+    width: 100%;
+  }
+}

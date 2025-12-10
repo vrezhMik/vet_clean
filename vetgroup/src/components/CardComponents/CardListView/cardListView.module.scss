@@ -1,0 +1,266 @@
+@use "./../../../styles/variables" as variables;
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+
+  .cardListRow {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    font-weight: bold;
+
+    .cardListRowTitle {
+      display: table-cell;
+      width: 20%;
+      text-align: center;
+      padding: 10px 0;
+
+      span {
+        color: variables.$theme-color;
+        font-size: 25px;
+        text-align: center;
+      }
+    }
+  }
+
+  .cardListData {
+    display: block;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 30px;
+    margin: 40px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #fbab20 #4f4141;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 100px;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #fbab20;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #4f4141;
+    }
+
+    .cardListDataRow {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      margin-top: 20px;
+
+      .cardListDataRowElement {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        padding: 10px 0;
+        width: 20%;
+
+        span {
+          color: variables.$theme-color-dark;
+          font-size: 20px;
+        }
+
+        button {
+          svg {
+            height: 18px;
+            width: 18px;
+            path {
+              fill: variables.$theme-color;
+            }
+          }
+        }
+
+        &Image {
+          position: relative;
+          width: 100%;
+          height: 75px;
+          margin: 0 auto;
+          img {
+            object-fit: contain;
+          }
+        }
+
+        .qtyControls {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+
+          input {
+            max-width: 40px;
+            height: 32px;
+            text-align: center;
+            padding: 0;
+          }
+
+          button {
+            height: 32px;
+            width: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+
+            svg {
+              width: 16px;
+              height: 16px;
+            }
+
+            &:last-child {
+              transform: rotate(180deg);
+            }
+          }
+        }
+        &:last-child {
+          button {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+.cardListCheckout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background: #fff;
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+
+  h1 {
+    color: variables.$theme-color-dark;
+  }
+
+  button {
+    background-color: variables.$theme-color;
+    color: variables.$theme-default-color;
+    padding: 10px 15px;
+    font-size: 24px;
+  }
+}
+.disabled {
+  opacity: 0.5;
+  &:hover {
+    cursor: auto;
+  }
+}
+
+.message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border: 4px solid #ededed;
+  border-radius: 15px;
+  padding: 50px 70px;
+  font-size: 32px;
+  box-shadow: 8px 8px 0px #fbab20;
+  z-index: 20;
+  background-color: #fdfdfd;
+}
+
+@media (max-width: 1200px) {
+  .cardList {
+    height: auto;
+    flex-direction: column;
+    padding: 1rem;
+    overflow: hidden;
+    min-height: 70svh;
+    .cardListRow {
+      display: none;
+    }
+
+    .cardListData {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1rem;
+      max-height: 60vh;
+      padding-right: 0.5rem;
+      max-height: calc(100vh - 220px); // adjust based on header + footer
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .cardListDataRow {
+      display: flex !important; // Reset from table
+      flex-direction: column !important;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background: #fff;
+      position: relative;
+
+      .cardListDataRowElement {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 0.75rem;
+
+        input[type="number"] {
+          width: 60px;
+        }
+        &Image {
+          height: 100px;
+
+          img {
+            max-width: 100px;
+            height: auto;
+            margin: 0 auto;
+          }
+        }
+        span,
+        input,
+        button {
+          font-size: 1rem;
+        }
+        &:last-child {
+          button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .cardListCheckout {
+    margin-top: 1rem;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    h1 {
+      font-size: 1.2rem;
+      text-align: center;
+      span {
+        display: block;
+      }
+    }
+
+    button {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.75rem;
+    }
+  }
+
+  .message {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .cardListData::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .cardListData::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+}
