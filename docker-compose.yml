@@ -23,7 +23,7 @@ services:
   frontend:
     build:
       context: ./vetgroup
-    command: npm run dev -- --hostname 0.0.0.0
+    command: npm run start
     ports:
       - "3000:3000"
     depends_on:
@@ -32,10 +32,3 @@ services:
       NODE_ENV: development
       NEXT_TELEMETRY_DISABLED: "1"
       NEXT_PUBLIC_API_URL: http://backend:1337
-    volumes:
-      - ./vetgroup:/app
-      - vetgroup_node_modules:/app/node_modules
-
-volumes:
-  vetgroup_node_modules:
-  vetgroup_backend_node_modules:
