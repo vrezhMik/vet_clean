@@ -4,19 +4,21 @@ services:
   backend:
     build:
       context: ./vetgroup_backend
-    command: npm run start
     ports:
       - "1337:1337"
-      - "5173:5173"
     env_file:
       - ./vetgroup_backend/.env
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
       STRAPI_ADMIN_HOST: 0.0.0.0
+      # optionally, if you set it:
+      # STRAPI_ADMIN_URL: https://vetgroup.am/admin
     volumes:
-      - ./vetgroup_backend:/srv/app
-      - vetgroup_backend_node_modules:/srv/app/node_modules
+      # Only persist data, not the whole app
       - ./vetgroup_backend/.tmp:/srv/app/.tmp
+      - ./vetgroup_backend/public/uploads:/srv/app/public/uploads
+
+
 
   frontend:
     build:
