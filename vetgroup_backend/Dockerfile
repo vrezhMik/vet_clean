@@ -8,4 +8,4 @@ COPY . .
 
 EXPOSE 1337
 
-CMD ["npm", "run", "develop", "--", "--watch-admin"]
+CMD ["npm", "run", "start"]
