@@ -1,18 +1,19 @@
 /**
- * custom order controller
+ * custom vetgroup-product controller
  */
 
 import { factories } from "@strapi/strapi";
 
 export default factories.createCoreController(
-  "api::order.order",
+  "api::product.product",
   ({ strapi }) => ({
-    async create(ctx) {
+    async update(ctx) {
+      const { id } = ctx.params;
       const data = ctx.request.body;
 
       const entity = await strapi
-        .service("api::order.order")
-        .create({ data });
+        .service("api::product.product")
+        .update(id, { data });
 
       return this.transformResponse(entity);
     },

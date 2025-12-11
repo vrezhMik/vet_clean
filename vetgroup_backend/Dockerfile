@@ -30,6 +30,9 @@ ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=1337
 
+# Build Strapi for production
+RUN npm run build
+
 EXPOSE 1337
 
-CMD ["npm", "run", "develop"]
+CMD ["npm", "run", "start"]
