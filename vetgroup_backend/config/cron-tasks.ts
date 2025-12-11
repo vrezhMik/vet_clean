@@ -2,7 +2,8 @@
 import type { Core } from '@strapi/strapi';
 import syncVetgroupProducts from '../src/services/vetgroup-product-sync';
 
-const SYNC_SCHEDULE = '* * * * *'; // every minute
+const SYNC_SCHEDULE = '0 * * * *'; // every hour at minute 0
+
 
 export default {
   vetgroupSync: {
