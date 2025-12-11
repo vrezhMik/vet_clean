@@ -40,10 +40,6 @@ Strapi gives you many possible deployment options for your project including [St
 yarn strapi deploy
 ```
 
-## 🔐 Environment
-
-Strapi requires a few secret values before the admin can boot. Copy `.env.example` to `.env` (or define the same variables in your shell) and fill in secure values for `ADMIN_JWT_SECRET`, `API_TOKEN_SALT`, `TRANSFER_TOKEN_SALT`, and `APP_KEYS`. The defaults in the example will let you get started locally but should be rotated for production.
-
 ## 📚 Learn more
 
 - [Resource center](https://strapi.io/resource-center) - Strapi resource center.

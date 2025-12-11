@@ -1,1 +1,0 @@
-# vetgroup-product
