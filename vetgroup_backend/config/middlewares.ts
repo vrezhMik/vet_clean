@@ -7,8 +7,29 @@ export default [
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          "script-src": ["'self'", "'unsafe-inline'"],
-          "connect-src": ["'self'", "https:", "wss:"],
+          "default-src": ["'self'"],
+          "connect-src": ["'self'", "https:", "http:"],
+          "img-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "https://market-assets.strapi.io",
+            "https://apollo-server-landing-page.cdn.apollographql.com",
+          ],
+          "script-src": [
+            "'self'",
+            "'unsafe-inline'",
+            "https://apollo-server-landing-page.cdn.apollographql.com",
+          ],
+          "style-src": [
+            "'self'",
+            "'unsafe-inline'",
+            "https://apollo-server-landing-page.cdn.apollographql.com",
+          ],
+          "manifest-src": [
+            "'self'",
+            "https://apollo-server-landing-page.cdn.apollographql.com",
+          ],
         },
       },
     },
