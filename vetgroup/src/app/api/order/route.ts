@@ -5,7 +5,11 @@ export async function POST(req: NextRequest) {
   const password = "001";
 
   try {
-    const body = await req.json();
+    const clientPayload = await req.json();
+    const backendPayload =
+      clientPayload && typeof clientPayload === "object" && "data" in clientPayload
+        ? clientPayload
+        : { data: clientPayload };
 
     const backendResponse = await fetch(
       "http://87.241.165.71:8081/web/hs/Eportal/Order",
@@ -17,7 +21,7 @@ export async function POST(req: NextRequest) {
             "Basic " +
             Buffer.from(`${username}:${password}`).toString("base64"),
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(backendPayload),
       }
     );
 
